@@ -1,35 +1,131 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Iku Bio</title>
-    <meta name="description" content="Iku Bio is a biotech company specializing in the production of synthetic biology products.">
-    <meta name="keywords" content="Iku Bio, biotech, synthetic biology, production">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iku Bio | Biology scaled</title>
+    <meta name="description" content="Biology scaled by Iku Bio">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-      body {
-        background-color: black;
-        font-family: sans-serif;
-        color: white;
-        text-align: center;
-      }
-      h1 {
-        font-size: 300%;
-        width: 80%;
-        margin: 0 auto;
-      }
-      a {
-        color: white;
-      }
-      @media (max-width: 768px) {
-        h1 {
-          font-size: 200%;
-          width: 100%;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: black;
+            margin: 0;
+            padding: 48px 16px;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
-      }
+
+        .main-title {
+            font-size: 96px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1;
+            margin: 16px 0 0 0;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            font-weight: 300;
+            color: #9ca3af;
+            margin: 8px 0 0 0;
+        }
+
+        .video-container {
+            margin: 80px 0;
+            max-width: 1200px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding-bottom: 48px;
+        }
+
+        .company-info {
+            margin-bottom: 16px;
+        }
+
+        .company-info p {
+            font-size: 16px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .contact-info a {
+            font-size: 16px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 64px;
+            }
+            
+            .subtitle {
+                font-size: 24px;
+            }
+            
+            body {
+                padding: 32px 16px;
+            }
+            
+            .video-container {
+                margin: 60px 0;
+            }
+            
+            .footer {
+                margin-top: 60px;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <h1>Iku Bio</h1>
-    <p><a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a></p>
-  </body>
+</head>
+<body>
+    <h1 class="main-title">Iku Bio</h1>
+    <p class="subtitle">Biology scaled</p>
+    
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe 
+                src="https://www.youtube.com/embed/WE6dV_CDAwY?modestbranding=1&rel=0&showinfo=0" 
+                allowfullscreen
+                loading="lazy"
+                title="Iku Bio Video">
+            </iframe>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="company-info">
+            <p>Iku Bio Inc.</p>
+            <p>New York, NY</p>
+        </div>
+        <div class="contact-info">
+            <a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a>
+        </div>
+    </div>
+</body>
 </html>
