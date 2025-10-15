@@ -4,140 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Iku Bio | Biology scaled</title>
-  <meta name="description" content="Iku Bio scales biology — combining precision hardware and data to accelerate bioprocess development." />
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Iku Bio | Biology scaled" />
-  <meta property="og:description" content="Biology scaled by Iku Bio" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://iku.bio/thumbnail.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
-
-  <!-- Style -->
+  <meta name="description" content="Biology scaled by Iku Bio" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #111;
-      font-family: 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: geometricPrecision;
-    }
-
-    main {
-      padding: 64px 5vw;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    header {
-      text-align: left;
-    }
-
-    h1 {
-      font-size: clamp(48px, 10vw, 96px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0;
-      line-height: 1;
-    }
-
-    p.subtitle {
-      font-size: clamp(20px, 4vw, 32px);
-      color: #888;
-      margin: 12px 0 0;
-      font-weight: 300;
-    }
-
+    body { margin: 0; padding: 0; font-family: sans-serif; background: #fff; color: #000; }
     .video-container {
-      margin: 80px 0;
-      background: #000;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      border-radius: 8px;
-    }
-
-    .video-wrapper {
       position: relative;
       width: 100%;
-      height: 100%;
+      max-width: 1200px;
+      margin: 80px auto;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+      cursor: pointer;
     }
-
-    .video-wrapper iframe {
+    .video-container img.poster {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
     }
-
-    footer {
-      margin-top: 80px;
-      padding-bottom: 48px;
-      font-size: 16px;
-      line-height: 1.6;
+    .video-container .play-button {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px; height: 64px;
+      background: rgba(255,255,255,0.8);
+      mask: url('play-icon.svg') center / contain no-repeat;
+      -webkit-mask: url('play-icon.svg') center / contain no-repeat;
     }
-
-    footer a {
-      color: #111;
-      text-decoration: none;
+    .video-wrapper {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
     }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #0c0c0c;
-        color: #fafafa;
-      }
-      p.subtitle { color: #999; }
-      footer a { color: #fafafa; }
-    }
-
-    @media (max-width: 768px) {
-      main {
-        padding: 48px 4vw;
-      }
-      .video-container {
-        margin: 60px 0;
-      }
+    .video-wrapper iframe {
+      width: 100%; height: 100%; border: none;
     }
   </style>
 </head>
-
 <body>
-  <main>
-    <header>
-      <h1>Iku Bio</h1>
-      <p class="subtitle">Biology scaled</p>
-    </header>
+  <h1>Iku Bio</h1>
+  <p>Biology scaled</p>
 
-    <section class="video-container">
-      <div class="video-wrapper">
-        <iframe
-          src="https://www.youtube.com/embed/WE6dV_CDAwY?autoplay=1&mute=1&playsinline=1&loop=1&playlist=WE6dV_CDAwY&rel=0&modestbranding=1&controls=0"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy"
-          title="Iku Bio Video"
-        ></iframe>
-      </div>
-    </section>
+  <div class="video-container" id="video-container">
+    <img class="poster" src="thumbnail.jpg" alt="Video thumbnail">
+    <div class="play-button"></div>
+    <div class="video-wrapper" id="video-wrapper">
+      <iframe
+        id="ytplayer"
+        src=""
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        loading="lazy"
+        title="Iku Bio Video"
+      ></iframe>
+    </div>
+  </div>
 
-    <footer>
-      <p><strong>Iku Bio Inc.</strong><br>New York, NY</p>
-      <p><a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a></p>
-    </footer>
-  </main>
+  <script>
+    const container = document.getElementById('video-container');
+    const wrapper = document.getElementById('video-wrapper');
+    const iframe = document.getElementById('ytplayer');
+    // Your video ID
+    const videoId = 'WE6dV_CDAwY';
+
+    container.addEventListener('click', () => {
+      // Construct iframe src with parameters
+      const src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${videoId}&rel=0`;
+      iframe.src = src;
+      wrapper.style.display = 'block';
+      // Hide poster & play button
+      container.querySelector('.poster').style.display = 'none';
+      container.querySelector('.play-button').style.display = 'none';
+    });
+  </script>
+
 </body>
 </html>
