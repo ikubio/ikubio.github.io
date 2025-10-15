@@ -1,82 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Iku Bio | Biology scaled</title>
-  <meta name="description" content="Biology scaled by Iku Bio" />
-  <style>
-    body { margin: 0; padding: 0; font-family: sans-serif; background: #fff; color: #000; }
-    .video-container {
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      margin: 80px auto;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .video-container img.poster {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover;
-    }
-    .video-container .play-button {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 64px; height: 64px;
-      background: rgba(255,255,255,0.8);
-      mask: url('play-icon.svg') center / contain no-repeat;
-      -webkit-mask: url('play-icon.svg') center / contain no-repeat;
-    }
-    .video-wrapper {
-      display: none;
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-    }
-    .video-wrapper iframe {
-      width: 100%; height: 100%; border: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iku Bio | Biology scaled</title>
+    <meta name="description" content="Biology scaled by Iku Bio">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com;">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+            color: black;
+            margin: 0;
+            padding: 48px 16px;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .main-title {
+            font-size: 96px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1;
+            margin: 16px 0 0 0;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            font-weight: 300;
+            color: #9ca3af;
+            margin: 8px 0 0 0;
+        }
+
+        .video-container {
+            margin: 80px 0;
+            max-width: 1200px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            min-height: 200px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding-bottom: 48px;
+        }
+
+        .company-info {
+            margin-bottom: 16px;
+        }
+
+        .company-info p {
+            font-size: 16px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .contact-info a {
+            font-size: 16px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 64px;
+            }
+            
+            .subtitle {
+                font-size: 24px;
+            }
+            
+            body {
+                padding: 32px 16px;
+            }
+            
+            .video-container {
+                margin: 60px 0;
+            }
+            
+            .footer {
+                margin-top: 60px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Iku Bio</h1>
-  <p>Biology scaled</p>
-
-  <div class="video-container" id="video-container">
-    <img class="poster" src="thumbnail.jpg" alt="Video thumbnail">
-    <div class="play-button"></div>
-    <div class="video-wrapper" id="video-wrapper">
-      <iframe
-        id="ytplayer"
-        src=""
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-        loading="lazy"
-        title="Iku Bio Video"
-      ></iframe>
+    <h1 class="main-title">Iku Bio</h1>
+    <p class="subtitle">Biology scaled</p>
+    
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe 
+                src="https://www.youtube-nocookie.com/embed/WE6dV_CDAwY?modestbranding=1&rel=0&playsinline=1" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                title="Iku Bio Video">
+            </iframe>
+        </div>
     </div>
-  </div>
-
-  <script>
-    const container = document.getElementById('video-container');
-    const wrapper = document.getElementById('video-wrapper');
-    const iframe = document.getElementById('ytplayer');
-    // Your video ID
-    const videoId = 'WE6dV_CDAwY';
-
-    container.addEventListener('click', () => {
-      // Construct iframe src with parameters
-      const src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${videoId}&rel=0`;
-      iframe.src = src;
-      wrapper.style.display = 'block';
-      // Hide poster & play button
-      container.querySelector('.poster').style.display = 'none';
-      container.querySelector('.play-button').style.display = 'none';
-    });
-  </script>
-
+    
+    <div class="footer">
+        <div class="company-info">
+            <p>Iku Bio Inc.</p>
+            <p>New York, NY</p>
+        </div>
+        <div class="contact-info">
+            <a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a>
+        </div>
+    </div>
 </body>
 </html>
