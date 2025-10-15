@@ -5,18 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Iku Bio | Biology scaled</title>
   <meta name="description" content="Iku Bio scales biology — combining precision hardware and data to accelerate bioprocess development." />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Iku Bio | Biology scaled" />
   <meta property="og:description" content="Biology scaled by Iku Bio" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://iku.bio/thumbnail.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
 
+  <!-- Style -->
   <style>
-    /* Layout & Aesthetic */
     html, body {
       margin: 0;
       padding: 0;
@@ -60,15 +63,16 @@
       border-radius: 8px;
     }
 
-    video {
+    .video-wrapper {
+      position: relative;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
     }
 
-    /* Fallback: YouTube embed (optional alternative if video file unavailable) */
-    .video-container iframe {
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       border: none;
@@ -98,6 +102,15 @@
       p.subtitle { color: #999; }
       footer a { color: #fafafa; }
     }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 48px 4vw;
+      }
+      .video-container {
+        margin: 60px 0;
+      }
+    }
   </style>
 </head>
 
@@ -109,12 +122,16 @@
     </header>
 
     <section class="video-container">
-      <!-- Use MP4 for iOS autoplay support -->
-      <video autoplay muted playsinline loop poster="thumbnail.jpg">
-        <source src="iku_intro.mp4" type="video/mp4" />
-        <!-- fallback -->
-        Your browser does not support the video tag.
-      </video>
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/WE6dV_CDAwY?autoplay=1&mute=1&playsinline=1&loop=1&playlist=WE6dV_CDAwY&rel=0&modestbranding=1&controls=0"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+          title="Iku Bio Video"
+        ></iframe>
+      </div>
     </section>
 
     <footer>
