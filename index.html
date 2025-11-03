@@ -1,135 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iku Bio | Biology scaled</title>
-    <meta name="description" content="Biology scaled by Iku Bio">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com;">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: white;
-            color: black;
-            margin: 0;
-            padding: 48px 16px;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iku Bio | Programmable Biology</title>
+  <meta name="description" content="Iku Bio is building the infrastructure that makes programmable biology inevitable." />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             frame-src https://www.youtube-nocookie.com https://www.youtube.com;">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
 
-        .main-title {
-            font-size: 96px;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            line-height: 1;
-            margin: 16px 0 0 0;
-        }
+  <style>
+    :root {
+      --text-color: #111;
+      --muted-color: #9ca3af;
+      --max-width: 800px;
+    }
 
-        .subtitle {
-            font-size: 32px;
-            font-weight: 300;
-            color: #9ca3af;
-            margin: 8px 0 0 0;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--text-color);
+      margin: 0;
+      padding: 64px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
 
-        .video-container {
-            margin: 80px 0;
-            max-width: 1200px;
-        }
+    main {
+      max-width: var(--max-width);
+      width: 100%;
+    }
 
-        .video-wrapper {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            background: #FFFFFF;
-            min-height: 200px;
-        }
+    h1, h2, h3, p {
+      margin: 0;
+    }
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+    h1.main-title {
+      font-size: clamp(48px, 10vw, 96px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
 
-        .footer {
-            margin-top: 80px;
-            padding-bottom: 48px;
-        }
+    p.lead {
+      font-size: clamp(20px, 4vw, 28px);
+      font-weight: 300;
+      color: var(--muted-color);
+      margin-bottom: 80px;
+    }
 
-        .company-info {
-            margin-bottom: 16px;
-        }
+    section {
+      margin-bottom: 80px;
+    }
 
-        .company-info p {
-            font-size: 16px;
-            margin: 0;
-            line-height: 1.5;
-        }
+    h2.section-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      color: var(--muted-color);
+    }
 
-        .contact-info a {
-            font-size: 16px;
-            color: black;
-            text-decoration: none;
-        }
+    p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
 
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+      border-radius: 8px;
+      margin: 80px 0;
+    }
 
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 64px;
-            }
-            
-            .subtitle {
-                font-size: 24px;
-            }
-            
-            body {
-                padding: 32px 16px;
-            }
-            
-            .video-container {
-                margin: 60px 0;
-            }
-            
-            .footer {
-                margin-top: 60px;
-            }
-        }
-    </style>
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    footer {
+      margin-top: 80px;
+      text-align: left;
+      font-size: 16px;
+      color: var(--text-color);
+    }
+
+    footer a {
+      color: var(--text-color);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 48px 16px;
+      }
+      p { font-size: 18px; }
+      .video-wrapper { margin: 60px 0; }
+    }
+  </style>
 </head>
+
 <body>
-    <h1 class="main-title">Iku Bio</h1>
-    <p class="subtitle">Biology scaled</p>
-    
-    <div class="video-container">
-        <div class="video-wrapper">
-            <iframe 
-                src="https://www.youtube-nocookie.com/embed/WE6dV_CDAwY?modestbranding=1&rel=0&playsinline=1" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-                title="Iku Bio Video">
-            </iframe>
-        </div>
+  <main>
+    <h1 class="main-title">IKU BIO</h1>
+    <p class="lead">We’re bringing biology into the compute era.</p>
+
+    <p>By embedding living systems directly into computers, we’re building the infrastructure that makes programmable biology inevitable.</p>
+
+    <div class="video-wrapper">
+      <iframe 
+        src="https://www.youtube-nocookie.com/embed/WE6dV_CDAwY?modestbranding=1&rel=0&playsinline=1" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        title="Iku Bio Video">
+      </iframe>
     </div>
-    
-    <div class="footer">
-        <div class="company-info">
-            <p>Iku Bio Inc.</p>
-            <p>New York, NY</p>
-        </div>
-        <div class="contact-info">
-            <a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a>
-        </div>
-    </div>
+
+    <section>
+      <h2 class="section-title">The Breakthrough</h2>
+      <p>Our first product is a microfluidic bioreactor on a printed circuit board — a modular cartridge that cultures, senses, and streams biological data in real time.</p>
+      <p><em>It’s biology that speaks machine language.</em></p>
+    </section>
+
+    <section>
+      <h2 class="section-title">The Impact</h2>
+      <p>By re-engineering the interface between biology and computation, we unlock 10,000× higher experimental throughput at 100× lower cost.</p>
+      <p>Millions of experiments can now run in parallel — autonomously, continuously, and intelligently.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">The Future</h2>
+      <p>This is the foundation for AI-centric, self-driving laboratories: systems that can both produce and learn from biological data at an unprecedented scale.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">The End State</h2>
+      <p>Labs will run themselves. AI will learn directly from life. And discovery will move at the speed of computation.</p>
+      <p><strong>IKU BIO</strong><br>
+      We’re building the infrastructure that makes this feedback loop inevitable.<br>
+      Building the infrastructure that makes programmable biology inevitable.</p>
+    </section>
+
+    <footer>
+      <p><strong>Iku Bio Inc.</strong><br>New York, NY</p>
+      <p><a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a></p>
+    </footer>
+  </main>
 </body>
 </html>
