@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<h3>Welcome to the real-time HTML editor!</h3>
+<p>Type HTML in the textarea above, and it will magically appear in the frame below.</p><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -17,7 +18,7 @@
   <style>
     :root {
       --text-color: #111;
-      --muted-color: #9ca3af;
+      --muted-color: #a3a3a3;
       --max-width: 800px;
     }
 
@@ -38,12 +39,14 @@
       width: 100%;
     }
 
+
+
     h1, h2, h3, p {
       margin: 0;
     }
 
     h1.main-title {
-      font-size: clamp(48px, 10vw, 96px);
+      font-size: clamp(48px, 8vw, 80px);
       font-weight: 700;
       letter-spacing: -0.025em;
       line-height: 1;
@@ -54,11 +57,16 @@
       font-size: clamp(20px, 4vw, 28px);
       font-weight: 300;
       color: var(--muted-color);
-      margin-bottom: 80px;
+      margin-bottom: 10px;
     }
 
     section {
-      margin-bottom: 80px;
+      margin-top: 50px;
+      margin-bottom: 60px;
+    }
+
+    section:first-of-type {
+       margin-top: 50px; /* or 104px */
     }
 
     h2.section-title {
@@ -74,7 +82,11 @@
       font-size: 20px;
       line-height: 1.6;
       margin-bottom: 24px;
+      color: #1a1a1a; 
+      line-height: 1.55;
     }
+
+    p em { color: #000; }
 
     .video-wrapper {
       position: relative;
@@ -128,6 +140,13 @@
 
     <p>By embedding living systems directly into computers, we’re building the infrastructure that makes programmable biology inevitable.</p>
 
+    <section>
+      <h2 class="section-title">The Breakthrough</h2>
+      <p>Our first product is a microfluidic bioreactor on a printed circuit board — a modular cartridge that cultures, senses, and streams biological data in real time.</p>
+      <p><em>It’s biology that speaks machine language.</em></p>
+    </section>
+
+
     <div class="video-wrapper">
       <iframe 
         src="https://www.youtube-nocookie.com/embed/WE6dV_CDAwY?modestbranding=1&rel=0&playsinline=1" 
@@ -138,11 +157,6 @@
       </iframe>
     </div>
 
-    <section>
-      <h2 class="section-title">The Breakthrough</h2>
-      <p>Our first product is a microfluidic bioreactor on a printed circuit board — a modular cartridge that cultures, senses, and streams biological data in real time.</p>
-      <p><em>It’s biology that speaks machine language.</em></p>
-    </section>
 
     <section>
       <h2 class="section-title">The Impact</h2>
