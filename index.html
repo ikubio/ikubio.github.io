@@ -25,37 +25,45 @@
       --max-width: 800px;
     }
 
-    .hero {
-  position: relative;
-  height: 100vh;                     /* full viewport height */
+
+    /* Full-bleed hero image */
+.hero {
   width: 100%;
+  height: 100vh; 
   background: url('green-cells.jpg') center center / cover no-repeat;
+  margin: -48px -24px 0 -24px;    /* removes page padding so image hits edges */
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: white;
+  position: relative;
 }
 
-.hero-overlay {
-  background: rgba(0, 0, 0, 0.35);   /* soft overlay for legibility */
-  padding: 48px;
-  border-radius: 8px;
+/* Remove padding on mobile too */
+@media (max-width: 768px) {
+  .hero {
+    margin: -48px -16px 0 -16px;
+  }
 }
 
+/* The only text on the hero */
 .hero-title {
   font-size: clamp(48px, 10vw, 96px);
   font-weight: 700;
   letter-spacing: -0.03em;
+  color: white;
+  text-shadow: 0 3px 16px rgba(0,0,0,0.4);  /* subtle, high-end readability */
   margin: 0;
 }
 
-.hero-tagline {
+/* Tagline just under hero image */
+.tagline-below {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
   font-size: clamp(20px, 4vw, 28px);
-  font-weight: 300;
-  margin-top: 12px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #555;
 }
+  
 
 /* Ensure smooth scroll continuity */
 .intro {
@@ -203,11 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
 <body>
 
-    <header class="hero">
-    <div class="hero-overlay">
-      <h1 class="hero-title">IKU BIO</h1>
-      <p class="hero-tagline">Bringing biology into the compute era.</p>
-    </div>
+  <header class="hero">
+    <h1 class="hero-title">IKU BIO</h1>
   </header>
   
   <main>
