@@ -25,6 +25,45 @@
       --max-width: 800px;
     }
 
+    .hero {
+  position: relative;
+  height: 100vh;                     /* full viewport height */
+  width: 100%;
+  background: url('green-cells.jpg') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.35);   /* soft overlay for legibility */
+  padding: 48px;
+  border-radius: 8px;
+}
+
+.hero-title {
+  font-size: clamp(48px, 10vw, 96px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.hero-tagline {
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 300;
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Ensure smooth scroll continuity */
+.intro {
+  max-width: var(--max-width);
+  margin: 80px auto 40px;
+  text-align: left;
+}
+
     body {
       font-family: 'Inter', sans-serif;
       background: #fff;
@@ -163,6 +202,14 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
   
 <body>
+
+    <header class="hero">
+    <div class="hero-overlay">
+      <h1 class="hero-title">IKU BIO</h1>
+      <p class="hero-tagline">Bringing biology into the compute era.</p>
+    </div>
+  </header>
+  
   <main>
     <h1 class="main-title">IKU BIO</h1>
     <p class="lead">Bringing biology into the compute era.</p>
