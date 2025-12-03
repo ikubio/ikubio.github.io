@@ -58,11 +58,16 @@
 }
 
 .hero-subtitle {
-  font-size: clamp(28px, 5vw, 52px);   /* larger + scales beautifully */
-  font-weight: 600;                    /* heavier, but still elegant */
-  margin-top: 18px;
-  letter-spacing: -0.015em;
-  color: #000;
+  font-size: clamp(26px, 4.5vw, 48px);   /* still strong, but not oversized */
+  font-weight: 500;                      /* lighter than 600 – looks more refined */
+  margin-top: 14px;
+  letter-spacing: -0.012em;
+  color: black;
+
+  text-shadow:
+    0 2px 10px rgba(255,255,255,0.45),   /* subtle white lift */
+    0 2px 10px rgba(0,0,0,0.35);         /* soft dark counterbalance */
+}
 
   /* Premium layered shadows for maximum readability */
   text-shadow:
