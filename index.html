@@ -58,13 +58,19 @@
 }
 
 .hero-subtitle {
-  font-size: clamp(24px, 4vw, 48px);
-  font-weight: 500;
-  margin-top: 12px;
-  letter-spacing: -0.01em;
-  color: black;
-  text-shadow: 0 3px 10px rgba(255,255,255,0.6), 
-               0 3px 16px rgba(0,0,0,0.4);
+  font-size: clamp(28px, 5vw, 52px);   /* larger + scales beautifully */
+  font-weight: 600;                    /* heavier, but still elegant */
+  margin-top: 18px;
+  letter-spacing: -0.015em;
+  color: #000;
+
+  /* Premium layered shadows for maximum readability */
+  text-shadow:
+    0 4px 14px rgba(255,255,255,0.65),   /* strong white halo */
+    0 3px 12px rgba(0,0,0,0.55),         /* diffused black shadow */
+    0 0 2px rgba(0,0,0,0.4);             /* light crisp edge for definition */
+}
+
 }
 
 }
