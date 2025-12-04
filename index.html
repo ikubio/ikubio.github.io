@@ -94,8 +94,8 @@
       box-sizing: border-box;
     }
 
+    /* allow full-width for main; sections will control their own width */
     main {
-      max-width: var(--max-width);
       width: 100%;
     }
 
@@ -122,6 +122,9 @@
     section {
       margin-top: 50px;
       margin-bottom: 50px;
+      max-width: var(--max-width);
+      margin-left: auto;
+      margin-right: auto;
     }
 
     section:first-of-type {
@@ -197,22 +200,20 @@
 
     .content {
       padding: 48px 24px;
-      max-width: var(--max-width);
       width: 100%;
       box-sizing: border-box;
     }
 
-    /* NEW: intro text + video side-by-side on desktop */
-.intro-section {
-  display: flex;
-  align-items: center;
-  gap: 60px;
-  max-width: 1400px; /* wide, but not too wide */
-  width: 100%;
-  margin: 120px auto 80px;
-  padding: 0 40px;   /* keeps text from touching screen edges */
-}
-
+    /* intro text + video side-by-side on desktop, wider than other sections */
+    .intro-section {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      max-width: 1400px; /* wide, but not too wide */
+      width: 100%;
+      margin: 120px auto 80px;
+      padding: 0 40px;   /* keeps text from touching screen edges */
+    }
 
     .intro-text {
       flex: 1;
@@ -239,6 +240,8 @@
       /* Stack intro section on mobile */
       .intro-section {
         flex-direction: column;
+        padding: 0 24px;
+        margin: 80px auto 40px;
       }
     }
   </style>
