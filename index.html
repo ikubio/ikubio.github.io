@@ -110,10 +110,8 @@
     }
 
     main { width: 100%; }
-
     h1, h2, h3, p { margin: 0; }
 
-    /* Main content wrapper */
     .content {
       padding: 0;
       width: 100%;
@@ -130,7 +128,6 @@
       background: #fff;
     }
 
-    /* Sticky stage stays locked while spacers scroll */
     .story-stage {
       position: sticky;
       top: 0;
@@ -145,75 +142,82 @@
 
     .story-inner {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1320px;            /* a bit wider to allow a bigger video */
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 56px;
+      grid-template-columns: 1.05fr 0.95fr; /* give video a touch more space */
+      gap: 48px;
       align-items: center;
     }
 
-    .story-text {
-      min-height: 240px;
-    }
+    .story-text { min-height: 240px; }
 
-    /* The lines that “bold” as you scroll */
     .story-line {
       font-size: clamp(36px, 4.2vw, 60px);
       line-height: 1.05;
       letter-spacing: -0.03em;
       color: #0b0b0b;
       font-weight: 400;
-      opacity: 0.22;
+      opacity: 0.10;
       transform: translateY(6px);
-      transition: opacity 280ms ease, transform 280ms ease, font-weight 280ms ease;
+      transition: opacity 260ms ease, transform 260ms ease, font-weight 260ms ease;
       margin-bottom: 18px;
     }
-
     .story-line:last-child { margin-bottom: 0; }
 
-    .story-line.is-active {
-      font-weight: 700;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Proof video */
-    .story-media video {
-      width: 100%;
+    /* Proof video (bigger, but capped so it never goes off-screen) */
+    .story-media video,
+    .final-media video {
+      width: min(620px, 100%); /* bigger than before */
       height: auto;
       display: block;
       border-radius: 14px;
     }
 
-    .video-caption {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #6b6b6b;
-      letter-spacing: 0.01em;
-    }
-
-    /* Make video feel “secondary” until step 3 */
     .story-media {
-      opacity: 0.65;
+      justify-self: end;       /* pushes it to the right, feels more premium */
+      opacity: 0.55;
       transform: translateY(6px);
-      transition: opacity 300ms ease, transform 300ms ease;
+      transition: opacity 260ms ease, transform 260ms ease;
     }
 
-    .story[data-step="3"] .story-media {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Each spacer creates one “screen” worth of scroll */
+    /* Each spacer creates one “screen” worth of scroll
+       Faster jump: reduce height by ~25% */
     .story-spacer {
-      height: 100vh;
+      height: 75vh; /* was 100vh */
       width: 100%;
     }
 
-    footer {
-      margin: 0;
+    /* Final section */
+    .final {
       width: 100%;
-      padding: 72px 32px 56px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      padding: 88px 32px 24px;
+      box-sizing: border-box;
+    }
+
+    .final-inner {
+      width: 100%;
+      max-width: 1320px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .final-text {
+      font-size: clamp(36px, 4.2vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      color: #0b0b0b;
+    }
+
+    /* Footer: cleaner, more aesthetic */
+    footer {
+      width: 100%;
+      padding: 44px 32px 56px;
       box-sizing: border-box;
       display: flex;
       justify-content: center;
@@ -221,38 +225,67 @@
 
     .footer-inner {
       width: 100%;
-      max-width: 1200px;
-      font-size: 16px;
-      color: var(--text-color);
+      max-width: 1320px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding-top: 22px;
+      font-size: 15px;
+      color: rgba(0,0,0,0.72);
+      letter-spacing: 0.01em;
+    }
+
+    .footer-left strong {
+      font-weight: 600;
+      color: rgba(0,0,0,0.88);
+    }
+
+    .footer-right {
+      text-align: right;
+      white-space: nowrap;
+      color: rgba(0,0,0,0.55);
+      font-size: 14px;
     }
 
     .footer-inner a {
-      color: var(--text-color);
+      color: rgba(0,0,0,0.80);
       text-decoration: none;
     }
     .footer-inner a:hover { text-decoration: underline; }
 
-    /* Mobile: stack text then video */
+    /* Mobile: stack */
     @media (max-width: 900px) {
-      .story-inner {
+      .story-inner,
+      .final-inner {
         grid-template-columns: 1fr;
         gap: 22px;
       }
-      .story-line {
+      .story-line,
+      .final-text {
         font-size: clamp(28px, 6.4vw, 44px);
       }
-      .story-media { max-width: 720px; }
+      .story-media,
+      .final-media { max-width: 720px; justify-self: start; }
+      .story-media video,
+      .final-media video { width: 100%; }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-right { text-align: left; white-space: normal; }
     }
 
     @media (max-width: 768px) {
       body { padding: 48px 16px; }
       .story-stage { padding: 0 16px; }
-      footer { padding: 56px 16px 48px; }
+      .final { padding: 56px 16px 12px; }
+      footer { padding: 40px 16px 48px; }
     }
 
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      .story-line, .story-media { transition: none !important; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -260,47 +293,67 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Play ALL videos safely (hero + proof)
+  // Play ALL videos safely
   document.querySelectorAll("video").forEach((v) => {
     v.addEventListener("loadeddata", () => {
       setTimeout(() => v.play().catch(()=>{}), 200);
     });
   });
 
-  // Apple-style scroll “locking” + bolding
   const story = document.querySelector(".story");
   const lines = Array.from(document.querySelectorAll(".story-line"));
-  const spacers = Array.from(document.querySelectorAll(".story-spacer"));
+  if (!story || !lines.length) return;
 
-  if (!story || !lines.length || !spacers.length) return;
+  // Faster “jump”: compress progress mapping by ~25%
+  // (this makes the emphasis move through step 1->2 sooner)
+  const SPEED = 1.25;
 
-  function setActive(step) {
-    story.setAttribute("data-step", String(step));
+  function clamp01(x) { return Math.max(0, Math.min(1, x)); }
+  function lerp(a,b,t) { return a + (b-a) * t; }
+
+  function updateProgressStyles() {
+    const rect = story.getBoundingClientRect();
+    const viewH = window.innerHeight;
+
+    const total = story.scrollHeight - viewH;
+    const progressed = (-rect.top);
+    let p = total > 0 ? clamp01(progressed / total) : 0;
+
+    // accelerate perceived progress
+    p = clamp01(p * SPEED);
+
+    // two steps for the lock section:
+    // step 1 dominates early, step 2 dominates later
+    // create a clean crossfade around the midpoint
+    const s1 = clamp01(1 - (p / 0.55));     // fades out faster
+    const s2 = clamp01((p - 0.35) / 0.65);  // fades in earlier
+
+    const w1 = lerp(420, 700, s1);
+    const w2 = lerp(420, 700, s2);
+
+    const o1 = lerp(0.10, 1.00, s1);
+    const o2 = lerp(0.10, 1.00, s2);
+
+    const y1 = lerp(6, 0, s1);
+    const y2 = lerp(6, 0, s2);
+
     lines.forEach((el) => {
-      const elStep = Number(el.getAttribute("data-step"));
-      el.classList.toggle("is-active", elStep === step);
+      const step = Number(el.getAttribute("data-step")) || 1;
+      if (step === 1) {
+        el.style.fontWeight = String(Math.round(w1));
+        el.style.opacity = String(o1.toFixed(3));
+        el.style.transform = `translateY(${y1.toFixed(1)}px)`;
+      } else if (step === 2) {
+        el.style.fontWeight = String(Math.round(w2));
+        el.style.opacity = String(o2.toFixed(3));
+        el.style.transform = `translateY(${y2.toFixed(1)}px)`;
+      }
     });
   }
 
-  // Default
-  setActive(1);
-
-  // IntersectionObserver picks which spacer is “current”
-  const io = new IntersectionObserver((entries) => {
-    // Choose the entry closest to center by highest intersection ratio
-    const visible = entries
-      .filter(e => e.isIntersecting)
-      .sort((a,b) => (b.intersectionRatio - a.intersectionRatio))[0];
-
-    if (!visible) return;
-
-    const step = Number(visible.target.getAttribute("data-step")) || 1;
-    setActive(step);
-  }, {
-    threshold: [0.25, 0.5, 0.75]
-  });
-
-  spacers.forEach(s => io.observe(s));
+  updateProgressStyles();
+  window.addEventListener("scroll", updateProgressStyles, { passive: true });
+  window.addEventListener("resize", updateProgressStyles);
 });
 </script>
 
@@ -317,14 +370,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </header>
 
   <main class="content">
-    <!-- LOCKED SCROLL STORY -->
+    <!-- LOCKED SCROLL STORY (steps 1 + 2 only) -->
     <section class="story" data-step="1">
       <div class="story-stage">
         <div class="story-inner">
           <div class="story-text" aria-label="Key message">
-            <p class="story-line is-active" data-step="1">The interface between biology and computation is broken.</p>
+            <p class="story-line" data-step="1">The interface between biology and computation is broken.</p>
             <p class="story-line" data-step="2">AI models need high-density, real-time cell data — and existing tools can’t produce it at scale.</p>
-            <p class="story-line" data-step="3">Iku is rebuilding the substrate so biology becomes machine-readable.</p>
           </div>
 
           <div class="story-media">
@@ -332,25 +384,40 @@ document.addEventListener("DOMContentLoaded", () => {
               <source src="iku_brew_demo_hi.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <div class="video-caption">Prototype platform</div>
           </div>
         </div>
       </div>
 
-      <!-- 3 distinct scroll sections -->
-      <div class="story-spacer" data-step="1" aria-hidden="true"></div>
-      <div class="story-spacer" data-step="2" aria-hidden="true"></div>
-      <div class="story-spacer" data-step="3" aria-hidden="true"></div>
+      <div class="story-spacer" aria-hidden="true"></div>
+      <div class="story-spacer" aria-hidden="true"></div>
+    </section>
+
+    <!-- FINAL SECTION at bottom: text + video side-by-side -->
+    <section class="final">
+      <div class="final-inner">
+        <div class="final-text">Iku is rebuilding the substrate so biology becomes machine-readable.</div>
+        <div class="final-media">
+          <video autoplay loop muted playsinline preload="metadata" poster="iku-teaser-video-still.jpg">
+            <source src="iku_brew_demo_hi.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
     </section>
 
     <footer>
       <div class="footer-inner">
-        <p><strong>Iku Bio Inc.</strong><br>New York, NY</p>
-        <p><a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a></p>
+        <div class="footer-left">
+          <div><strong>Iku Bio Inc.</strong></div>
+          <div>New York, NY</div>
+          <div><a href="mailto:inquiries@iku.bio">inquiries@iku.bio</a></div>
+        </div>
+        <div class="footer-right">© 2025 Iku Bio Inc. All rights reserved.</div>
       </div>
     </footer>
   </main>
 </body>
 </html>
+
 
 
