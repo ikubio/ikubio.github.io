@@ -112,7 +112,7 @@
       text-shadow: 0 6px 24px rgba(0,0,0,0.14);
     }
 
-    /* Subtitle fades in slowly + deliberately (no blur, no pulse) */
+    /* Subtitle (typewriter target) */
     .hero-subtitle {
       font-size: clamp(26px, 4.5vw, 48px);
       font-weight: 650;
@@ -122,28 +122,8 @@
       text-align: center;
       text-shadow: 0 6px 24px rgba(0,0,0,0.10);
 
-      opacity: 0;
-      transform: translateY(8px);
-      transition:
-        opacity 2200ms cubic-bezier(0.10, 0.90, 0.15, 1),
-        transform 2200ms cubic-bezier(0.10, 0.90, 0.15, 1);
-      transition-delay: 1100ms; /* lag before beginning */
-      will-change: opacity, transform;
-    }
-
-    /* On load, we add this class */
-    .hero-subtitle.is-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero-subtitle {
-        transition: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-      }
-      html { scroll-behavior: auto; }
+      /* prevent layout shift while typing */
+      min-height: 1.2em;
     }
 
     /* =========================
@@ -294,6 +274,10 @@
       .story-stage { padding: 0 16px; }
       footer { padding: 40px 16px 48px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
   </style>
 </head>
 
@@ -306,11 +290,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Subtitle fades in after lag
-  requestAnimationFrame(() => {
-    const subtitle = document.querySelector(".hero-subtitle");
-    if (subtitle) subtitle.classList.add("is-in");
-  });
+  // Typewriter subtitle (integrated)
+  const subtitle = document.querySelector(".hero-subtitle");
+  const fullText = "Making Biology Machine-Readable";
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (subtitle) {
+    if (prefersReduced) {
+      subtitle.textContent = fullText;
+    } else {
+      subtitle.textContent = "";
+      const START_DELAY = 900;   // pause before typing starts
+      const BASE_SPEED = 55;     // ms per character
+      const VARIANCE = 35;       // organic jitter
+      let i = 0;
+
+      setTimeout(() => {
+        const type = () => {
+          if (i < fullText.length) {
+            subtitle.textContent += fullText.charAt(i);
+            i++;
+            setTimeout(type, BASE_SPEED + Math.random() * VARIANCE);
+          }
+        };
+        type();
+      }, START_DELAY);
+    }
+  }
 
   // Scroll-driven bolding in story
   const story = document.querySelector(".story");
@@ -375,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <div class="hero-lockup" aria-label="Hero">
       <h1 class="hero-title">IKU BIO</h1>
-      <h2 class="hero-subtitle">Making Biology Machine-Readable</h2>
+      <h2 class="hero-subtitle"></h2>
     </div>
   </header>
 
