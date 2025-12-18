@@ -62,18 +62,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-
-      /* keep your crop */
       transform: scale(1.32);
-
-      /* animated, subtle drift */
       object-position: 40% 42%;
       animation: focusDrift 14s ease-in-out infinite;
-
       filter: saturate(1.05) contrast(1.05);
       z-index: 0;
     }
 
+    /* global subtle overlay */
     .hero::after {
       content: "";
       position: absolute;
@@ -91,7 +87,7 @@
     /* Near-invisible localized contrast field */
     .hero-lockup {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       text-align: center;
       padding: 0;
       background: transparent;
@@ -116,7 +112,6 @@
       .hero-lockup::before { inset: -90px -80px; }
     }
 
-    /* Title present immediately */
     .hero-title {
       font-size: clamp(60px, 12.5vw, 120px);
       font-weight: 700;
@@ -126,7 +121,6 @@
       text-shadow: 0 6px 24px rgba(0,0,0,0.14);
     }
 
-    /* Subtitle (typewriter target) */
     .hero-subtitle {
       font-size: clamp(26px, 4.5vw, 48px);
       font-weight: 650;
@@ -139,51 +133,89 @@
     }
 
     /* =========================
-       Scroll indicator (Option 1)
-       Appears only after typewriter completes
+       Scroll cue: Option B (bottom fade) + Option A (V chevron)
+       Both appear only after typewriter completes
        ========================= */
 
-    @keyframes scrollBreath {
-      0%   { opacity: 0.35; }
-      50%  { opacity: 0.75; }
-      100% { opacity: 0.35; }
+    /* Option B: soft bottom fade */
+    .hero-bottom-fade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 160px;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0; /* off until enabled */
+      transition: opacity 1200ms ease;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.00) 0%,
+        rgba(255,255,255,0.00) 35%,
+        rgba(255,255,255,0.10) 70%,
+        rgba(255,255,255,0.18) 100%
+      );
     }
 
-    .scroll-indicator {
+    .hero-bottom-fade.is-on { opacity: 1; }
+
+    /* Option A: minimal V chevron */
+    @keyframes chevronBreath {
+      0%   { opacity: 0.28; }
+      50%  { opacity: 0.62; }
+      100% { opacity: 0.28; }
+    }
+
+    .scroll-chevron {
       position: absolute;
       left: 50%;
-      bottom: 26px;
+      bottom: 28px;
       transform: translateX(-50%);
-      width: 2px;
-      height: 46px;
-      border-radius: 999px;
-
-      /* invisible until enabled */
-      opacity: 0;
-
-      /* reads like a calibration mark, not UI */
-      background: rgba(0,0,0,0.45);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.14);
-
-      transition: opacity 900ms ease;
+      width: 34px;
+      height: 18px;
+      z-index: 3;
       pointer-events: none;
-      z-index: 2;
+      opacity: 0; /* off until enabled */
+      transition: opacity 900ms ease;
+      filter: drop-shadow(0 10px 26px rgba(0,0,0,0.12));
     }
 
-    .scroll-indicator.is-on {
-      opacity: 0.55;
-      animation: scrollBreath 2.8s ease-in-out infinite;
+    /* the two strokes */
+    .scroll-chevron::before,
+    .scroll-chevron::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      width: 18px;
+      height: 0;
+      border-top: 2px solid rgba(0,0,0,0.55);
+      border-radius: 2px;
+    }
+
+    .scroll-chevron::before {
+      left: 0;
+      transform: rotate(35deg);
+      transform-origin: left center;
+    }
+
+    .scroll-chevron::after {
+      right: 0;
+      transform: rotate(-35deg);
+      transform-origin: right center;
+    }
+
+    .scroll-chevron.is-on {
+      opacity: 1;
+      animation: chevronBreath 2.8s ease-in-out infinite;
     }
 
     @media (max-width: 768px) {
-      .scroll-indicator {
-        bottom: 18px;
-        height: 40px;
-      }
+      .scroll-chevron { bottom: 18px; }
+      .hero-bottom-fade { height: 130px; }
     }
 
     /* =========================
-       BODY
+       BODY / STORY / FOOTER
        ========================= */
 
     body {
@@ -201,10 +233,6 @@
     main { width: 100%; }
     h1, h2, h3, p { margin: 0; }
     .content { width: 100%; box-sizing: border-box; }
-
-    /* =========================
-       Apple-style “locked” scroll story
-       ========================= */
 
     .story {
       width: 100%;
@@ -267,7 +295,6 @@
       width: 100%;
     }
 
-    /* Footer */
     footer {
       width: 100%;
       padding: 44px 32px 56px;
@@ -325,19 +352,14 @@
       .footer-right { text-align: left; white-space: normal; }
     }
 
-    @media (max-width: 768px) {
-      body { padding: 48px 16px; }
-      .story-stage { padding: 0 16px; }
-      footer { padding: 40px 16px 48px; }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hero-bg { animation: none !important; }
-      .scroll-indicator {
+      .scroll-chevron,
+      .hero-bottom-fade {
         transition: none !important;
         animation: none !important;
-        opacity: 0.45 !important; /* still visible */
+        opacity: 1 !important;
       }
     }
   </style>
@@ -352,29 +374,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Typewriter subtitle + enable scroll indicator when done
+  // Typewriter subtitle + enable scroll cues when done
   const subtitle = document.querySelector(".hero-subtitle");
-  const indicator = document.querySelector(".scroll-indicator");
+  const chevron = document.querySelector(".scroll-chevron");
+  const bottomFade = document.querySelector(".hero-bottom-fade");
+
   const fullText = "Making Biology Machine-Readable";
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function turnOnIndicator() {
-    if (!indicator) return;
-    // small delay so it feels intentional, not "UI"
-    setTimeout(() => indicator.classList.add("is-on"), 350);
+  function turnOnCues() {
+    // small delay so it feels intentional, not UI
+    setTimeout(() => {
+      if (bottomFade) bottomFade.classList.add("is-on");
+      if (chevron) chevron.classList.add("is-on");
+    }, 350);
   }
 
   if (subtitle) {
     if (prefersReduced) {
       subtitle.textContent = fullText;
-      turnOnIndicator();
+      turnOnCues();
     } else {
       subtitle.textContent = "";
-
       const START_DELAY = 900;
       const BASE_SPEED = 55;
       const VARIANCE = 35;
-
       let i = 0;
 
       setTimeout(() => {
@@ -384,14 +408,14 @@ document.addEventListener("DOMContentLoaded", () => {
             i++;
             setTimeout(type, BASE_SPEED + Math.random() * VARIANCE);
           } else {
-            turnOnIndicator();
+            turnOnCues();
           }
         };
         type();
       }, START_DELAY);
     }
   } else {
-    turnOnIndicator();
+    turnOnCues();
   }
 
   // Scroll-driven bolding in story
@@ -460,8 +484,11 @@ document.addEventListener("DOMContentLoaded", () => {
       <h2 class="hero-subtitle"></h2>
     </div>
 
-    <!-- Option 1 scroll indicator (turns on after typewriter completes) -->
-    <div class="scroll-indicator" aria-hidden="true"></div>
+    <!-- Option B: bottom fade -->
+    <div class="hero-bottom-fade" aria-hidden="true"></div>
+
+    <!-- Option A: subtle V chevron -->
+    <div class="scroll-chevron" aria-hidden="true"></div>
   </header>
 
   <main class="content">
