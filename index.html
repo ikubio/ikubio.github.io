@@ -102,6 +102,7 @@
       .hero-lockup::before { inset: -90px -80px; }
     }
 
+    /* Title is present immediately (no animation) */
     .hero-title {
       font-size: clamp(60px, 12.5vw, 120px);
       font-weight: 700;
@@ -111,6 +112,7 @@
       text-shadow: 0 6px 24px rgba(0,0,0,0.14);
     }
 
+    /* Subtitle fades in slowly + deliberately (no blur, no pulse) */
     .hero-subtitle {
       font-size: clamp(26px, 4.5vw, 48px);
       font-weight: 650;
@@ -119,75 +121,27 @@
       color: #000;
       text-align: center;
       text-shadow: 0 6px 24px rgba(0,0,0,0.10);
-      animation: none; /* enabled after reveal */
-    }
 
-    /* =========================
-       REVEAL (slower start + longer runway)
-       ========================= */
-
-    .reveal {
       opacity: 0;
-      transform: translateY(10px);
-      filter: blur(7px);
-      will-change: opacity, transform, filter;
-    }
-
-    /* IKU BIO: slower + more graceful (not more lag) */
-    .hero-title.reveal {
+      transform: translateY(8px);
       transition:
         opacity 2200ms cubic-bezier(0.10, 0.90, 0.15, 1),
-        transform 2200ms cubic-bezier(0.10, 0.90, 0.15, 1),
-        filter 2200ms cubic-bezier(0.10, 0.90, 0.15, 1);
+        transform 2200ms cubic-bezier(0.10, 0.90, 0.15, 1);
+      transition-delay: 1100ms; /* lag before beginning */
+      will-change: opacity, transform;
     }
 
-    /* Subtitle: later start, still clean resolve */
-    .hero-subtitle.reveal {
-      transition:
-        opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1200ms cubic-bezier(0.16, 1, 0.3, 1),
-        filter 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.is-in {
+    /* On load, we add this class */
+    .hero-subtitle.is-in {
       opacity: 1;
       transform: translateY(0);
-      filter: blur(0);
-    }
-
-    /* Title appears first */
-    .reveal.delay-1 { transition-delay: 180ms; }
-
-    /* Subtitle lags more */
-    .reveal.delay-2 { transition-delay: 1550ms; }
-
-    /* =========================
-       Subtitle “cell pulse” (slightly stronger + visible)
-       ========================= */
-
-    @keyframes cellPulse {
-      0%   { opacity: 0.82; filter: blur(0.0px); }
-      25%  { opacity: 1.00; filter: blur(0.0px); }
-      60%  { opacity: 0.90; filter: blur(1.2px); }
-      100% { opacity: 0.82; filter: blur(0.0px); }
-    }
-
-    .hero-subtitle.reveal.is-in {
-      animation: cellPulse 6.2s ease-in-out infinite;
-      animation-delay: 1200ms;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal, .reveal.delay-1, .reveal.delay-2 {
+      .hero-subtitle {
         transition: none !important;
         opacity: 1 !important;
         transform: none !important;
-        filter: none !important;
-      }
-      .hero-subtitle.reveal.is-in {
-        animation: none !important;
-        opacity: 1 !important;
-        filter: none !important;
       }
       html { scroll-behavior: auto; }
     }
@@ -352,9 +306,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Sequential reveal in hero
+  // Subtitle fades in after lag
   requestAnimationFrame(() => {
-    document.querySelectorAll(".reveal").forEach(el => el.classList.add("is-in"));
+    const subtitle = document.querySelector(".hero-subtitle");
+    if (subtitle) subtitle.classList.add("is-in");
   });
 
   // Scroll-driven bolding in story
@@ -419,8 +374,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </video>
 
     <div class="hero-lockup" aria-label="Hero">
-      <h1 class="hero-title reveal delay-1">IKU BIO</h1>
-      <h2 class="hero-subtitle reveal delay-2">Making Biology Machine-Readable</h2>
+      <h1 class="hero-title">IKU BIO</h1>
+      <h2 class="hero-subtitle">Making Biology Machine-Readable</h2>
     </div>
   </header>
 
@@ -461,6 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </main>
 </body>
 </html>
+
 
 
 
