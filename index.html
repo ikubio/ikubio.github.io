@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -24,17 +25,18 @@
       --max-width: 800px;
     }
 
-    /* Full-bleed hero image */
+    /* Full-bleed hero VIDEO */
     .hero {
       width: 100vw;
       height: 100vh;
-      background: url('green-cells.jpg') center center / cover no-repeat;
       margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       position: relative;
+      overflow: hidden; /* important for cropping */
+      background: #000; /* fallback */
     }
 
     /* Remove padding on mobile too */
@@ -42,6 +44,42 @@
       .hero {
         margin: -48px -16px 0 -16px;
       }
+    }
+
+    /* Hero background video (cropped + repositioned to remove VEO logo) */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      /* Crop + shift: tweak these if needed */
+      transform: scale(1.12);
+      object-position: 40% 42%;
+
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    /* Subtle overlay for readability */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+          circle at 50% 40%,
+          rgba(255,255,255,0.10) 0%,
+          rgba(255,255,255,0.06) 40%,
+          rgba(0,0,0,0.22) 100%
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ensure hero text stays above video + overlay */
+    .hero > *:not(.hero-bg) {
+      position: relative;
+      z-index: 1;
     }
 
     /* The only text on the hero */
@@ -249,13 +287,13 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const v = document.querySelector("video");
-  if (!v) return;
-
-  v.addEventListener("loadeddata", () => {
-    setTimeout(() => {
-      v.play().catch(()=>{});
-    }, 500); // delay in ms
+  // Play ALL videos (hero + intro), safely.
+  document.querySelectorAll("video").forEach((v) => {
+    v.addEventListener("loadeddata", () => {
+      setTimeout(() => {
+        v.play().catch(()=>{});
+      }, 200);
+    });
   });
 });
 </script>
@@ -263,6 +301,12 @@ document.addEventListener("DOMContentLoaded", () => {
 <body>
 
   <header class="hero">
+    <!-- HERO BACKGROUND VIDEO (replaces green-cells.jpg) -->
+    <video class="hero-bg" autoplay loop muted playsinline preload="metadata">
+      <source src="Video_Animation_Style.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
     <h1 class="hero-title">IKU BIO</h1>
     <h2 class="hero-subtitle">Making Biology Machine-Readable</h2>
   </header>
