@@ -7,7 +7,7 @@
   <link rel="alternate icon" href="iku-logo-black-transparent.svg" type="image/svg+xml">
   <meta name="theme-color" content="#ffffff">
   <title>Iku Bio | Programmable Biology</title>
-  <meta name="description" content="Iku Bio is building the infrastructure that makes programmable biology inevitable." />
+  <meta name="description" content="The interface between biology and computation is broken. Iku is rebuilding the substrate so biology becomes machine-readable." />
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com;
              script-src 'self' 'unsafe-inline';
@@ -22,7 +22,7 @@
     :root {
       --text-color: #111;
       --muted-color: #a3a3a3;
-      --max-width: 800px;
+      --max-width: 900px;
     }
 
     /* Full-bleed hero VIDEO */
@@ -46,20 +46,20 @@
       }
     }
 
-    /* Hero background video (cropped + repositioned to remove VEO logo) */
+    /* Hero background video (cropped + repositioned to remove VEO logo + pillarbox bars) */
     .hero-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
 
-  /* stronger crop to remove pillarbox bars */
-  transform: scale(1.32);
-  object-position: 40% 42%;
+      /* stronger crop to remove pillarbox bars */
+      transform: scale(1.32);
+      object-position: 40% 42%;
 
-  filter: saturate(1.05) contrast(1.05);
-}
+      filter: saturate(1.05) contrast(1.05);
+    }
 
     /* Subtle overlay for readability */
     .hero::after {
@@ -104,22 +104,6 @@
         0 2px 10px rgba(0,0,0,0.45);
     }
 
-    /* Tagline just under hero image */
-    .tagline-below {
-      margin-top: 40px;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: clamp(20px, 4vw, 28px);
-      color: #555;
-    }
-
-    /* Ensure smooth scroll continuity */
-    .intro {
-      max-width: var(--max-width);
-      margin: 80px auto 40px;
-      text-align: left;
-    }
-
     body {
       font-family: 'Inter', sans-serif;
       background: #fff;
@@ -141,87 +125,79 @@
       margin: 0;
     }
 
-    h1.main-title {
-      font-size: clamp(48px, 8vw, 80px);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    p.lead {
-      font-size: clamp(20px, 4vw, 28px);
-      font-weight: 400;
-      color: #000;
-      margin-bottom: 20px;
-      max-width: 40ch;
-    }
-
-    section {
-      margin-top: 50px;
-      margin-bottom: 50px;
-      max-width: var(--max-width);
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    section:first-of-type {
-      margin-top: 50px; /* or 104px */
-    }
-
-    h2.section-title {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      color: var(--muted-color);
-    }
-
     p {
       font-size: 20px;
-      line-height: 1.6;
-      margin-bottom: 24px;
-      color: #1a1a1a;
       line-height: 1.55;
+      margin-bottom: 18px;
+      color: #1a1a1a;
     }
 
-    p em { color: #000; }
-
-    video {
-      transition: opacity 0.3s ease;
+    /* Main content wrapper */
+    .content {
+      padding: 56px 24px 48px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    video:hover {
-      opacity: 0.95;
-      cursor: pointer;
+    /* ONE section only: copy + proof video */
+    .pitch-section {
+      display: flex;
+      align-items: center;
+      gap: 56px;
+      max-width: 1200px;
+      margin: 96px auto 64px;
+      padding: 0 32px;
     }
 
-    video:hover::-webkit-media-controls {
+    .pitch-text {
+      flex: 1;
+      max-width: 560px;
+    }
+
+    .pitch-lines {
+      font-size: clamp(22px, 2.2vw, 30px);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: #0b0b0b;
+    }
+
+    .pitch-lines p {
+      font-size: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      color: inherit;
+      margin-bottom: 14px;
+    }
+
+    .pitch-lines p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pitch-video {
+      flex: 1;
+      max-width: 520px;
+    }
+
+    .pitch-video video {
+      width: 100%;
+      height: auto;
       display: block;
+      border-radius: 14px;
     }
 
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      overflow: hidden;
-      border-radius: 8px;
-      margin: 50px 0;
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
+    .video-caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #6b6b6b;
+      letter-spacing: 0.01em;
     }
 
     footer {
-      margin-top: 80px;
+      margin-top: 64px;
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 32px 40px;
+      box-sizing: border-box;
       text-align: left;
       font-size: 16px;
       color: var(--text-color);
@@ -236,58 +212,50 @@
       text-decoration: underline;
     }
 
-    .content {
-      padding: 48px 24px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    /* intro text + video side-by-side on desktop, wider than other sections */
-    .intro-section {
-      display: flex;
-      align-items: center;
-      gap: 60px;
-      max-width: 1400px; /* wide, but not too wide */
-      width: 100%;
-      margin: 120px auto 80px;
-      padding: 0 40px;   /* keeps text from touching screen edges */
-    }
-
-    .intro-text {
-      flex: 1;
-    }
-
-    .intro-video {
-      flex: 1;
-    }
-
-    .intro-video video {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 12px;
-    }
-
+    /* Mobile */
     @media (max-width: 768px) {
-      body {
-        padding: 48px 16px;
-      }
-      p { font-size: 18px; }
-      .video-wrapper { margin: 60px 0; }
+      body { padding: 48px 16px; }
 
-      /* Stack intro section on mobile */
-      .intro-section {
-        flex-direction: column;
-        padding: 0 24px;
-        margin: 80px auto 40px;
+      .content {
+        padding: 40px 0 24px;
       }
+
+      .pitch-section {
+        flex-direction: column;
+        gap: 28px;
+        margin: 56px auto 40px;
+        padding: 0 8px;
+      }
+
+      .pitch-text {
+        max-width: 680px;
+        padding: 0 16px;
+      }
+
+      .pitch-video {
+        max-width: 680px;
+        padding: 0 16px;
+      }
+
+      footer {
+        padding: 0 16px 40px;
+      }
+    }
+
+    /* Video hover stays subtle */
+    video {
+      transition: opacity 0.25s ease;
+    }
+    video:hover {
+      opacity: 0.97;
+      cursor: default;
     }
   </style>
 </head>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Play ALL videos (hero + intro), safely.
+  // Play ALL videos (hero + proof), safely.
   document.querySelectorAll("video").forEach((v) => {
     v.addEventListener("loadeddata", () => {
       setTimeout(() => {
@@ -301,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <body>
 
   <header class="hero">
-    <!-- HERO BACKGROUND VIDEO (replaces green-cells.jpg) -->
+    <!-- HERO BACKGROUND VIDEO -->
     <video class="hero-bg" autoplay loop muted playsinline preload="metadata">
       <source src="Video_Animation_Style.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -312,41 +280,23 @@ document.addEventListener("DOMContentLoaded", () => {
   </header>
 
   <main class="content">
-    <section class="intro-section">
-      <div class="intro-text">
-        <p class="lead">Bringing biology into the compute era.</p>
-        <p>By embedding living systems directly into computers, we’re building the infrastructure that makes programmable biology inevitable.</p>
+    <!-- SINGLE SECTION: investor copy + proof video -->
+    <section class="pitch-section">
+      <div class="pitch-text">
+        <div class="pitch-lines">
+          <p>The interface between biology and computation is broken.</p>
+          <p>AI models need high-density, real-time cell data — and existing tools can’t produce it at scale.</p>
+          <p>Iku is rebuilding the substrate so biology becomes machine-readable.</p>
+        </div>
       </div>
 
-      <div class="intro-video">
+      <div class="pitch-video">
         <video autoplay loop muted playsinline preload="metadata" poster="iku-teaser-video-still.jpg">
           <source src="iku_brew_demo_hi.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+        <div class="video-caption">Prototype platform</div>
       </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">The Breakthrough</h2>
-      <p>Our first product is a microfluidic bioreactor on a printed circuit board that cultures, senses, and streams biological data in real time.</p>
-      <p><em>It’s biology that speaks machine language.</em></p>
-    </section>
-
-    <section>
-      <h2 class="section-title">The Impact</h2>
-      <p>By re-engineering the interface between biology and computation, we unlock 10,000× higher experimental throughput at 100× lower cost.</p>
-      <p>Millions of experiments can now run in parallel — autonomously, continuously, and intelligently.</p>
-    </section>
-
-    <section>
-      <h2 class="section-title">The Future</h2>
-      <p>This is the foundation for AI-centric, self-driving laboratories: systems that can both produce and learn from biological data at an unprecedented scale.</p>
-    </section>
-
-    <section>
-      <h2 class="section-title">The End State</h2>
-      <p>Labs will run themselves. AI will learn directly from life. And discovery will move at the speed of computation.</p>
-      <p><strong>IKU BIO</strong> is building the infrastructure that makes this feedback loop <em>inevitable</em>.</p>
     </section>
 
     <footer>
