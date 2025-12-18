@@ -139,6 +139,50 @@
     }
 
     /* =========================
+       Scroll indicator (Option 1)
+       Appears only after typewriter completes
+       ========================= */
+
+    @keyframes scrollBreath {
+      0%   { opacity: 0.35; }
+      50%  { opacity: 0.75; }
+      100% { opacity: 0.35; }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 46px;
+      border-radius: 999px;
+
+      /* invisible until enabled */
+      opacity: 0;
+
+      /* reads like a calibration mark, not UI */
+      background: rgba(0,0,0,0.45);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.14);
+
+      transition: opacity 900ms ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .scroll-indicator.is-on {
+      opacity: 0.55;
+      animation: scrollBreath 2.8s ease-in-out infinite;
+    }
+
+    @media (max-width: 768px) {
+      .scroll-indicator {
+        bottom: 18px;
+        height: 40px;
+      }
+    }
+
+    /* =========================
        BODY
        ========================= */
 
@@ -290,6 +334,11 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hero-bg { animation: none !important; }
+      .scroll-indicator {
+        transition: none !important;
+        animation: none !important;
+        opacity: 0.45 !important; /* still visible */
+      }
     }
   </style>
 </head>
@@ -303,19 +352,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Typewriter subtitle
+  // Typewriter subtitle + enable scroll indicator when done
   const subtitle = document.querySelector(".hero-subtitle");
+  const indicator = document.querySelector(".scroll-indicator");
   const fullText = "Making Biology Machine-Readable";
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function turnOnIndicator() {
+    if (!indicator) return;
+    // small delay so it feels intentional, not "UI"
+    setTimeout(() => indicator.classList.add("is-on"), 350);
+  }
 
   if (subtitle) {
     if (prefersReduced) {
       subtitle.textContent = fullText;
+      turnOnIndicator();
     } else {
       subtitle.textContent = "";
+
       const START_DELAY = 900;
       const BASE_SPEED = 55;
       const VARIANCE = 35;
+
       let i = 0;
 
       setTimeout(() => {
@@ -324,11 +383,15 @@ document.addEventListener("DOMContentLoaded", () => {
             subtitle.textContent += fullText.charAt(i);
             i++;
             setTimeout(type, BASE_SPEED + Math.random() * VARIANCE);
+          } else {
+            turnOnIndicator();
           }
         };
         type();
       }, START_DELAY);
     }
+  } else {
+    turnOnIndicator();
   }
 
   // Scroll-driven bolding in story
@@ -396,6 +459,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <h1 class="hero-title">IKU BIO</h1>
       <h2 class="hero-subtitle"></h2>
     </div>
+
+    <!-- Option 1 scroll indicator (turns on after typewriter completes) -->
+    <div class="scroll-indicator" aria-hidden="true"></div>
   </header>
 
   <main class="content">
@@ -435,6 +501,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </main>
 </body>
 </html>
+
 
 
 
