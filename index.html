@@ -80,12 +80,7 @@
       z-index: 2;
       text-align: center;
       padding: 0;
-      border-radius: 0;
       background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border: none;
-      box-shadow: none;
     }
 
     .hero-lockup::before {
@@ -128,18 +123,30 @@
     }
 
     /* =========================
-       REVEAL (slower + more elegant for title)
+       REVEAL (slower start + longer runway)
        ========================= */
 
     .reveal {
       opacity: 0;
-      transform: translateY(8px);
-      filter: blur(4px);
-      transition:
-        opacity 1100ms cubic-bezier(0.20, 0.80, 0.20, 1),
-        transform 1100ms cubic-bezier(0.20, 0.80, 0.20, 1),
-        filter 1100ms cubic-bezier(0.20, 0.80, 0.20, 1);
+      transform: translateY(10px);
+      filter: blur(7px);
       will-change: opacity, transform, filter;
+    }
+
+    /* IKU BIO: slower + more graceful (not more lag) */
+    .hero-title.reveal {
+      transition:
+        opacity 2200ms cubic-bezier(0.10, 0.90, 0.15, 1),
+        transform 2200ms cubic-bezier(0.10, 0.90, 0.15, 1),
+        filter 2200ms cubic-bezier(0.10, 0.90, 0.15, 1);
+    }
+
+    /* Subtitle: later start, still clean resolve */
+    .hero-subtitle.reveal {
+      transition:
+        opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1200ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1200ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .reveal.is-in {
@@ -148,26 +155,26 @@
       filter: blur(0);
     }
 
-    /* Title appears first, slightly sooner */
+    /* Title appears first */
     .reveal.delay-1 { transition-delay: 180ms; }
 
-    /* Subtitle comes later (more dramatic lag) */
-    .reveal.delay-2 { transition-delay: 900ms; }
+    /* Subtitle lags more */
+    .reveal.delay-2 { transition-delay: 1550ms; }
 
     /* =========================
-       Subtitle “cell pulse” (after reveal)
+       Subtitle “cell pulse” (slightly stronger + visible)
        ========================= */
 
     @keyframes cellPulse {
-      0%   { opacity: 0.88; filter: blur(0px); }
-      35%  { opacity: 1.00; filter: blur(0px); }
-      60%  { opacity: 0.94; filter: blur(0.4px); }
-      100% { opacity: 0.88; filter: blur(0px); }
+      0%   { opacity: 0.82; filter: blur(0.0px); }
+      25%  { opacity: 1.00; filter: blur(0.0px); }
+      60%  { opacity: 0.90; filter: blur(1.2px); }
+      100% { opacity: 0.82; filter: blur(0.0px); }
     }
 
     .hero-subtitle.reveal.is-in {
-      animation: cellPulse 6.5s ease-in-out infinite;
-      animation-delay: 1.2s; /* waits after reveal before “breathing” */
+      animation: cellPulse 6.2s ease-in-out infinite;
+      animation-delay: 1200ms;
     }
 
     @media (prefers-reduced-motion: reduce) {
