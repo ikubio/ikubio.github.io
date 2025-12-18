@@ -48,18 +48,18 @@
 
     /* Hero background video (cropped + repositioned to remove VEO logo) */
     .hero-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 
-      /* Crop + shift: tweak these if needed */
-      transform: scale(1.12);
-      object-position: 40% 42%;
+  /* stronger crop to remove pillarbox bars */
+  transform: scale(1.32);
+  object-position: 40% 42%;
 
-      filter: saturate(1.05) contrast(1.05);
-    }
+  filter: saturate(1.05) contrast(1.05);
+}
 
     /* Subtle overlay for readability */
     .hero::after {
