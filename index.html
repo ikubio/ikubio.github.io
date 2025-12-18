@@ -75,32 +75,40 @@
       z-index: 1;
     }
 
-    /* Localized contrast “glass” layer behind text */
+    /* ✅ Replace “glass card” with near-invisible localized contrast field */
     .hero-lockup {
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 28px 34px;
-      border-radius: 20px;
-
-      /* glass */
-      background: rgba(255,255,255,0.22);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-
-      /* soft edge + depth */
-      border: 1px solid rgba(255,255,255,0.25);
-      box-shadow:
-        0 20px 60px rgba(0,0,0,0.15),
-        0 6px 24px rgba(0,0,0,0.10);
+      padding: 0;              /* remove box feel */
+      border-radius: 0;
+      background: transparent; /* no visible panel */
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      box-shadow: none;
     }
 
-    /* Keep lockup subtle on small screens */
+    /* localized micro-contrast behind the text (felt, not seen) */
+    .hero-lockup::before {
+      content: "";
+      position: absolute;
+      inset: -120px -180px; /* big soft field */
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255,255,255,0.18) 0%,
+        rgba(255,255,255,0.10) 35%,
+        rgba(255,255,255,0.04) 55%,
+        rgba(255,255,255,0.00) 70%
+      );
+    }
+
+    /* Keep the field scaled down on small screens */
     @media (max-width: 768px) {
-      .hero-lockup {
-        padding: 22px 22px;
-        border-radius: 18px;
-        background: rgba(255,255,255,0.26);
+      .hero-lockup::before {
+        inset: -90px -80px;
       }
     }
 
@@ -111,18 +119,20 @@
       color: #000;
       margin: 0;
 
-      /* cleaner, less “shadowy” now that we have glass */
-      text-shadow: 0 8px 30px rgba(0,0,0,0.18);
+      /* ✅ Optional: calmer, more premium shadow */
+      text-shadow: 0 6px 24px rgba(0,0,0,0.14);
     }
 
     .hero-subtitle {
       font-size: clamp(26px, 4.5vw, 48px);
-      font-weight: 650; /* slightly bolder */
+      font-weight: 650;
       margin-top: 12px;
       letter-spacing: -0.017em;
       color: #000;
       text-align: center;
-      text-shadow: 0 8px 30px rgba(0,0,0,0.12);
+
+      /* ✅ Optional: calmer, more premium shadow */
+      text-shadow: 0 6px 24px rgba(0,0,0,0.10);
     }
 
     /* Sequential reveal */
@@ -386,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Your browser does not support the video tag.
     </video>
 
-    <!-- Localized contrast layer + sequential reveal -->
+    <!-- Near-invisible localized contrast + sequential reveal -->
     <div class="hero-lockup" aria-label="Hero">
       <h1 class="hero-title reveal delay-1">IKU BIO</h1>
       <h2 class="hero-subtitle reveal delay-2">Making Biology Machine-Readable</h2>
@@ -430,6 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </main>
 </body>
 </html>
+
 
 
 
